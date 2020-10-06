@@ -80,10 +80,11 @@ public class GestorAlquileres {
 	 */
 	public int[] consultaDisponibles() throws IOException {
 		stream.seek(0);
-		
-		
-		return null; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
-		
+		int[] nBicis = new int[NPUESTOS];
+		for(int i=0; i<NPUESTOS; i++) {
+			nBicis[i]=stream.readInt();
+		}
+		return nBicis; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 	}
 	
 
@@ -92,12 +93,27 @@ public class GestorAlquileres {
 	 * 
 	 * @param codcli
 	 * @return vector de bicis alquiladas. Vector vacio si no tiene ninguna
+	 * @throws IOException 
 	 */
-	public Vector<String> consultaAlquiladas(String codcli) {	
-
-		// POR IMPLEMENTAR
+	public Vector<String> consultaAlquiladas(String codcli) throws IOException {	
+		boolean finalizado = false;
+		Vector<String> alquiladas = new Vector<>();
 		
-		return null; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
+		try {
+			while(!finalizado) {
+				String bici = stream.readUTF();
+		  		stream.readInt();
+		  		String cliente = stream.readUTF();
+		  		stream.readInt();
+		  		stream.readInt();
+		  		if(cliente.compareTo(codcli)==0) {
+		  			alquiladas.add(bici);
+		  		}
+			}
+		}catch (EOFException e) {
+			finalizado = true;
+		}	
+		return alquiladas; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 		
 
 	}
@@ -149,11 +165,19 @@ public class GestorAlquileres {
 	 * @param puesto	puesto del que alquilar
 	 * @param codcli	codigo del cliente que alquila
 	 * @return	bici alquilada. null si no hay bicis en ese puesto o el puesto no existe
+	 * @throws IOException 
 	 */
-	public String alquilaBici(int puesto, String codcli) {
-
-		// POR IMPLEMENTAR
-		
+	public String alquilaBici(int puesto, String codcli) throws IOException {
+		stream.seek(0);
+		if(puesto<1 || puesto>5) {
+			return null;
+		}
+		else {
+			int pointer = (int) (stream.getFilePointer()+(puesto-1)*Integer.BYTES);
+			stream.seek(pointer);
+			int bicis = stream.readInt();
+			stream.write(bicis-1);
+		}
 		return null; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 		
 	}
