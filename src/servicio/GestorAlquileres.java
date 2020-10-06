@@ -26,10 +26,10 @@ public class GestorAlquileres {
 
 	/**
 	 * Cierra el flujo/stream asociado al fichero de comics.
+	 * @throws IOException 
 	 */
-	public void cierraGestor(){
-
-		// POR IMPLEMENTAR
+	public void cierraGestor() throws IOException{
+		stream.close();
 		
 	}
 
