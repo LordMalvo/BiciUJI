@@ -38,8 +38,9 @@ public class BicisLocal {
 	 * Programa principal. Muestra el menú repetidamente y atiende las peticiones del cliente.
 	 * 
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args)  {
+	public static void main(String[] args) throws IOException  {
 
 		Scanner teclado = new Scanner(System.in);
 
@@ -54,14 +55,11 @@ public class BicisLocal {
 			opcion = menu(teclado);
 			switch (opcion) {
 			case 0: // Cierra el gestor y sale del programa
-
-				// POR IMPLEMENTAR
-
+				gestor.cierraGestor();
 				break;
 
 			case 1: { // Consulta bicis disponibles
-
-				// POR IMPLEMENTAR
+					
 
 				break;
 			}
