@@ -157,9 +157,11 @@ public class Bicicleta implements Serializable {
 	 * @throws	EOFException, IOException
 	 */	
   	public void leeDeFichero(RandomAccessFile stream) throws EOFException, IOException {
-  		
-	  // POR IMPLEMENTAR
-  		
+  		setCodbici(stream.readUTF());
+  		setPuesto(stream.readInt());
+  		setCodcli(stream.readUTF());
+  		setHora(stream.readInt());
+  		setMinuto(stream.readInt());
     } // fin leeDeFichero
   	
 
@@ -169,8 +171,11 @@ public class Bicicleta implements Serializable {
 	 * @throws IOException 
 	 */	
   	public void escribeEnFichero(RandomAccessFile stream) throws IOException {
-  	  		
-  		  // POR IMPLEMENTAR
+  	  	stream.writeUTF(getCodbici());
+  	  	stream.writeInt(getPuesto());
+  	  	stream.writeUTF(getCodcli());
+  	  	stream.writeInt(getHora());
+  	  	stream.writeInt(getMinuto());
   	  		
     } // fin escribeEnFichero
 	
