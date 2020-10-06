@@ -76,10 +76,11 @@ public class GestorAlquileres {
 	 * Consulta el numero de bicis disponibles en todos los puestos
 	 * 
 	 * @return	vector con las bicis disponibles en cada puesto
+	 * @throws IOException 
 	 */
-	public int[] consultaDisponibles() {
-
-		// POR IMPLEMENTAR
+	public int[] consultaDisponibles() throws IOException {
+		stream.seek(0);
+		
 		
 		return null; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 		
