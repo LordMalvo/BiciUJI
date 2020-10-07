@@ -175,8 +175,7 @@ public class Bicicleta implements Serializable {
   	  	stream.writeInt(getPuesto());
   	  	stream.writeUTF(getCodcli());
   	  	stream.writeInt(getHora());
-  	  	stream.writeInt(getMinuto());
-  	  		
+  	  	stream.writeInt(getMinuto());	
     } // fin escribeEnFichero
 	
 

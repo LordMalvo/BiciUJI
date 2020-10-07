@@ -30,7 +30,6 @@ public class GestorAlquileres {
 	 */
 	public void cierraGestor() throws IOException{
 		stream.close();
-		
 	}
 
 	/**
@@ -152,7 +151,6 @@ public class GestorAlquileres {
 				indice = -1;
 				System.out.println("Error en buscaBiciPuesto");
 			}
-
 			return indice;
 		}	
 	}
@@ -179,7 +177,6 @@ public class GestorAlquileres {
 			stream.write(bicis-1);
 		}
 		return null; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
-		
 	}
 
 
