@@ -59,23 +59,35 @@ public class BicisLocal {
 				break;
 
 			case 1: { // Consulta bicis disponibles
-					
-				
+				int[] nBicis = gestor.consultaDisponibles();
+				for(int i=0; i<NPUESTOS; i++) {
+					System.out.println("Puesto "+(i+1)+": "+nBicis[i]+" bicicletas disponibles");
+				}
 				break;
 			}
 
 			case 2: { // Consulta bicis alquiladas por un cliente
-
-				// POR IMPLEMENTAR
-
+				Vector<String> alquiladas = gestor.consultaAlquiladas(codcli);
+				if (alquiladas.size()==0) {
+					System.out.println("Usted no tiene alquilada ninguna bicicleta.");
+				}
+				else {
+					System.out.println("Ha alquilado las siguientes bicicletas:\n");
+					for(int i=0; i<alquiladas.size(); i++) {
+						System.out.println("-Bicicleta "+alquiladas.get(i)+"\n");
+					}
+				}
 				break;
 			}
 
 			case 3: { // Alquila una bici
-
-				// POR IMPLEMENTAR
-
-
+				System.out.print("Introduce el puesto donde quiere alquilar la bici: ");
+				int puesto = teclado.nextInt();
+				String biciAlquilada = gestor.alquilaBici(puesto, codcli); 
+				if(biciAlquilada.equals(null)) System.out.println("Puesto incorrecto o puesto vacio.");
+				else {
+					System.out.println("Bicicleta "+biciAlquilada+" del puesto "+puesto+" alquilada.");
+				}
 				break;
 			}
 
