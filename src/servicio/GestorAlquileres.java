@@ -236,12 +236,24 @@ public class GestorAlquileres {
 	 * @param codbici	codigo de la bici
 	 * @param codcli	codigo del cliente que devuelve la bici
 	 * @return	bici devuelta. null si no la ha podido devolver
+	 * @throws IOException 
 	 */
-	public String devuelveBici(int puesto, String codbici, String codcli) {
-
-		// POR IMPLEMENTAR
-		
-		return null; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
+	public String devuelveBici(int puesto, String codbici, String codcli) throws IOException {
+		int huecos = numHuecos(puesto-1);
+		long posFichero = buscaBici(codbici); 
+		String devuelta=null;
+		if(huecos>0 && posFichero!=-1) {
+			Bicicleta bici = new Bicicleta();
+			stream.seek((puesto-1)*Integer.BYTES);
+			//Sumamos una bici al puesto
+			stream.writeInt(huecos-1);
+			stream.seek(posFichero);
+			bici.leeDeFichero(stream);
+			bici.setPuesto(puesto-1);
+			bici.setCodcli("");
+			devuelta=codbici;
+		}
+		return devuelta; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 
 	}
 

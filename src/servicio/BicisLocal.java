@@ -92,10 +92,15 @@ public class BicisLocal {
 			}
 
 			case 4: // Devuelve una bici
-
-				// POR IMPLEMENTAR
-
-
+				System.out.print("Introduce el puesto donde quiere devolver la bicicleta: ");
+				int puesto = teclado.nextInt();
+				System.out.print("Introduce el codigo de la bicicleta que quiere devolver: ");
+				String bici = teclado.nextLine();
+				String biciDevuelta = gestor.devuelveBici(puesto, bici, codcli);
+				if(biciDevuelta!=null) {
+					System.out.print("Bicicleta "+biciDevuelta+" devuelta correctamente");
+				}
+				else System.out.print("Ha habido un error");
 				break;
 
 			} // fin switch
