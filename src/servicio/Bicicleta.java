@@ -171,11 +171,11 @@ public class Bicicleta implements Serializable {
 	 * @throws IOException 
 	 */	
   	public void escribeEnFichero(RandomAccessFile stream) throws IOException {
-  	  	stream.writeUTF(getCodbici());
-  	  	stream.writeInt(getPuesto());
-  	  	stream.writeUTF(getCodcli());
-  	  	stream.writeInt(getHora());
-  	  	stream.writeInt(getMinuto());	
+  	  	stream.writeUTF(this.getCodbici());
+  	  	stream.writeInt(this.getPuesto());
+  	  	stream.writeUTF(this.getCodcli());
+  	  	stream.writeInt(this.getHora());
+  	  	stream.writeInt(this.getMinuto());	
     } // fin escribeEnFichero
 	
 

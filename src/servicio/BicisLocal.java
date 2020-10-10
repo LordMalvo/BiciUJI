@@ -84,7 +84,7 @@ public class BicisLocal {
 				System.out.print("Introduce el puesto donde quiere alquilar la bici: ");
 				int puesto = teclado.nextInt();
 				String biciAlquilada = gestor.alquilaBici(puesto, codcli); 
-				if(biciAlquilada.equals(null)) System.out.println("Puesto incorrecto o puesto vacio.");
+				if(biciAlquilada==null) System.out.println("Puesto incorrecto o puesto vacio.");
 				else {
 					System.out.println("Bicicleta "+biciAlquilada+" del puesto "+puesto+" alquilada.");
 				}

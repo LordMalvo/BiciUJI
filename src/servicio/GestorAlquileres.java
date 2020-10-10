@@ -21,7 +21,7 @@ public class GestorAlquileres {
 	 * Crea un fichero con datos de prueba
 	 */
 	public GestorAlquileres() {
-		creaFichero("bicis3.dat");
+		creaFichero("bicis4.dat");
 	}
 
 	/**
@@ -165,20 +165,20 @@ public class GestorAlquileres {
 	 */
 	public String alquilaBici(int puesto, String codcli) throws IOException {
 		long indice = buscaBiciPuesto(puesto);
-		String codigo = null;
-		if(indice==-1) return codigo;
+		int[] huecos = consultaDisponibles();
+		String codigo;
+		if(indice==-1) codigo=null;
 		else {
 			Bicicleta bici = new Bicicleta();
 			stream.seek((puesto-1)*Integer.BYTES);
-			int bicis = stream.readInt();
 			//Restamos una bici al puesto
-			stream.seek((puesto-1)*Integer.BYTES);
-			stream.writeInt(bicis-1);
+			stream.writeInt(huecos[puesto-1]-1);
 			//Buscamos la primera bici de ese puesto
 			stream.seek(indice);
 			bici.leeDeFichero(stream);
 			bici.setCodcli(codcli);
 			bici.setPuesto(-1);
+			stream.seek(indice);
 			bici.escribeEnFichero(stream);
 			codigo = bici.getCodbici();
 		}
