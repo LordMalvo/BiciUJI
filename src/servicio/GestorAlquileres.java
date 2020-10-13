@@ -127,7 +127,7 @@ public class GestorAlquileres {
 		boolean encontrada = false;
 		long indice = -1;
 		Bicicleta bici = null;
-		if ( (puesto < 1) || (puesto > NPUESTOS) )
+		if ( (puesto < 0) || (puesto > NPUESTOS) )
 			return -1;
 		else {
 			bici = new Bicicleta();
@@ -163,7 +163,7 @@ public class GestorAlquileres {
 	 * @throws IOException 
 	 */
 	public String alquilaBici(int puesto, String codcli) throws IOException {
-		long indice = buscaBiciPuesto(puesto);
+		long indice = buscaBiciPuesto(puesto-1);
 		int[] huecos = consultaDisponibles();
 		String codigo;
 		if(indice==-1) codigo=null;
@@ -220,9 +220,9 @@ public class GestorAlquileres {
 		Bicicleta bici = new Bicicleta();
 		try {
 			while(!encontrada) {
+				posicion=stream.getFilePointer();
 				bici.leeDeFichero(stream);
 				if(bici.getCodbici().compareTo(codbici)==0) {
-					posicion=stream.getFilePointer();
 					encontrada=true;
 				}
 			}
@@ -262,5 +262,4 @@ public class GestorAlquileres {
 		}
 		return devuelta; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 	}
-
 }

@@ -50,6 +50,7 @@ public class BicisLocal {
 		System.out.print("Introduce tu codigo de cliente (max. 8 caracteres): ");
 		String codcli = teclado.nextLine();
 		codcli = rightPad(codcli,8);
+		System.out.print("Codigo recortado: "+codcli);
 
 		int opcion; 
 		do {
@@ -110,10 +111,8 @@ public class BicisLocal {
 
 	} // fin de main
 
-
 	private static String rightPad(String cadena, int n) {
 		return (cadena.length()) < n ? cadena+"        ".substring(0,n-cadena.length()) : cadena.substring(0,n);
 	}
-	
 
 } // fin class
