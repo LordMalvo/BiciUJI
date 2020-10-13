@@ -21,7 +21,7 @@ public class GestorAlquileres {
 	 * Crea un fichero con datos de prueba
 	 */
 	public GestorAlquileres() {
-		creaFichero("bicis4.dat");
+		creaFichero("bicis.dat");
 	}
 
 	/**
@@ -112,7 +112,6 @@ public class GestorAlquileres {
 			finalizado = true;
 		}	
 		return alquiladas; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
-		
 	}
 
 
@@ -219,11 +218,17 @@ public class GestorAlquileres {
 		long posicion = -1;
 		stream.seek(NPUESTOS*Integer.BYTES);
 		Bicicleta bici = new Bicicleta();
-		while(!encontrada) {
-			bici.leeDeFichero(stream);
-			if(bici.getCodbici().compareTo(codbici)==0) {
-				posicion=stream.getFilePointer();
+		try {
+			while(!encontrada) {
+				bici.leeDeFichero(stream);
+				if(bici.getCodbici().compareTo(codbici)==0) {
+					posicion=stream.getFilePointer();
+					encontrada=true;
+				}
 			}
+		}
+		catch (EOFException e) { // Hemos llegado al final del fichero
+			posicion = -1;
 		}
 		return posicion; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 	}
@@ -239,22 +244,23 @@ public class GestorAlquileres {
 	 * @throws IOException 
 	 */
 	public String devuelveBici(int puesto, String codbici, String codcli) throws IOException {
-		int huecos = numHuecos(puesto-1);
-		long posFichero = buscaBici(codbici); 
+		int[] disp = consultaDisponibles();
+		long indice = buscaBici(codbici); 
 		String devuelta=null;
-		if(huecos>0 && posFichero!=-1) {
+		if(disp[puesto-1]<10 && indice!=-1) {
 			Bicicleta bici = new Bicicleta();
 			stream.seek((puesto-1)*Integer.BYTES);
 			//Sumamos una bici al puesto
-			stream.writeInt(huecos-1);
-			stream.seek(posFichero);
+			stream.writeInt(disp[puesto-1]+1);
+			stream.seek(indice);
 			bici.leeDeFichero(stream);
 			bici.setPuesto(puesto-1);
-			bici.setCodcli("");
+			bici.setCodcli("        ");
+			stream.seek(indice);
+			bici.escribeEnFichero(stream);
 			devuelta=codbici;
 		}
 		return devuelta; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
-
 	}
 
 }

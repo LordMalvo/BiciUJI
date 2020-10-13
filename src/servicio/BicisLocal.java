@@ -49,6 +49,7 @@ public class BicisLocal {
 
 		System.out.print("Introduce tu codigo de cliente (max. 8 caracteres): ");
 		String codcli = teclado.nextLine();
+		codcli = rightPad(codcli,8);
 
 		int opcion; 
 		do {
@@ -95,7 +96,7 @@ public class BicisLocal {
 				System.out.print("Introduce el puesto donde quiere devolver la bicicleta: ");
 				int puesto = teclado.nextInt();
 				System.out.print("Introduce el codigo de la bicicleta que quiere devolver: ");
-				String bici = teclado.nextLine();
+				String bici = teclado.next();	
 				String biciDevuelta = gestor.devuelveBici(puesto, bici, codcli);
 				if(biciDevuelta!=null) {
 					System.out.print("Bicicleta "+biciDevuelta+" devuelta correctamente");
@@ -107,7 +108,12 @@ public class BicisLocal {
 
 		} while (opcion != 0);
 
-
 	} // fin de main
+
+
+	private static String rightPad(String cadena, int n) {
+		return (cadena.length()) < n ? cadena+"        ".substring(0,n-cadena.length()) : cadena.substring(0,n);
+	}
+	
 
 } // fin class
