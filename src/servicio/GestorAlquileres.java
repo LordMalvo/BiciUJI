@@ -247,18 +247,20 @@ public class GestorAlquileres {
 		int[] disp = consultaDisponibles();
 		long indice = buscaBici(codbici); 
 		String devuelta=null;
-		if(disp[puesto-1]<10 && indice!=-1) {
-			Bicicleta bici = new Bicicleta();
-			stream.seek((puesto-1)*Integer.BYTES);
-			//Sumamos una bici al puesto
-			stream.writeInt(disp[puesto-1]+1);
-			stream.seek(indice);
-			bici.leeDeFichero(stream);
-			bici.setPuesto(puesto-1);
-			bici.setCodcli("        ");
-			stream.seek(indice);
-			bici.escribeEnFichero(stream);
-			devuelta=codbici;
+		if((puesto>=1 && puesto<=NPUESTOS)) {
+			if(indice!=-1 && disp[puesto-1]<10) {
+				Bicicleta bici = new Bicicleta();
+				stream.seek((puesto-1)*Integer.BYTES);
+				//Sumamos una bici al puesto
+				stream.writeInt(disp[puesto-1]+1);
+				stream.seek(indice);
+				bici.leeDeFichero(stream);
+				bici.setPuesto(puesto-1);
+				bici.setCodcli("        ");
+				stream.seek(indice);
+				bici.escribeEnFichero(stream);
+				devuelta=codbici;
+			}
 		}
 		return devuelta; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
 	}

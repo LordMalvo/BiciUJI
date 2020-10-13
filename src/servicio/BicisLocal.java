@@ -102,7 +102,7 @@ public class BicisLocal {
 				if(biciDevuelta!=null) {
 					System.out.print("Bicicleta "+biciDevuelta+" devuelta correctamente");
 				}
-				else System.out.print("Ha habido un error");
+				else System.out.print("El puesto no existe o esta lleno, o el codigo de bicicleta introducido es incorrecto");
 				break;
 
 			} // fin switch
