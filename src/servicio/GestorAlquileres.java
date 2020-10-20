@@ -165,6 +165,9 @@ public class GestorAlquileres {
 	public String alquilaBici(int puesto, String codcli) throws IOException {
 		long indice = buscaBiciPuesto(puesto-1);
 		int[] huecos = consultaDisponibles();
+		LocalDateTime localDate = LocalDateTime.now();
+		int hora = localDate.getHour();
+		int minuto = localDate.getMinute();
 		String codigo;
 		if(indice==-1) codigo=null;
 		else {
@@ -177,6 +180,8 @@ public class GestorAlquileres {
 			bici.leeDeFichero(stream);
 			bici.setCodcli(codcli);
 			bici.setPuesto(-1);
+			bici.setHora(hora);
+			bici.setMinuto(minuto);
 			stream.seek(indice);
 			bici.escribeEnFichero(stream);
 			codigo = bici.getCodbici();
@@ -247,6 +252,9 @@ public class GestorAlquileres {
 		int[] disp = consultaDisponibles();
 		long indice = buscaBici(codbici); 
 		String devuelta=null;
+		LocalDateTime localDate = LocalDateTime.now();
+		int hora = localDate.getHour();
+		int minuto = localDate.getMinute();
 		if((puesto>=1 && puesto<=NPUESTOS)) {
 			if(indice!=-1 && disp[puesto-1]<10) {
 				Bicicleta bici = new Bicicleta();
@@ -255,11 +263,16 @@ public class GestorAlquileres {
 				stream.writeInt(disp[puesto-1]+1);
 				stream.seek(indice);
 				bici.leeDeFichero(stream);
-				bici.setPuesto(puesto-1);
-				bici.setCodcli("        ");
-				stream.seek(indice);
-				bici.escribeEnFichero(stream);
-				devuelta=codbici;
+				//Comprobamos que la bici encontrada esta alquilada por este cliente
+				if(bici.getCodcli().compareTo(codcli)==0){
+					bici.setPuesto(puesto-1);
+					bici.setCodcli("        ");
+					bici.setHora(hora);
+					bici.setMinuto(minuto);
+					stream.seek(indice);
+					bici.escribeEnFichero(stream);
+					devuelta=codbici;
+				} 
 			}
 		}
 		return devuelta; // DEVOLVER LA INFORMACION ADECUADA EN CADA CASO
